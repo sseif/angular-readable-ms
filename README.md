@@ -1,8 +1,7 @@
-# angular-readable-time
+# angular-readable-milliseconds
 
-[![Build Status](https://travis-ci.org/wildlyinaccurate/angular-readable-time.png?branch=master)](https://travis-ci.org/wildlyinaccurate/angular-readable-time)
-
-AngularJS filter for converting a number of seconds to a human-readable time.
+AngularJS filter for converting a number of milliseconds to a human-readable time.
+Best used for short amounts of time (< 60 mins) that require more accuracy.
 
 ## Usage
 
@@ -18,18 +17,23 @@ Add the `readableTime` module to your application's dependencies.
 angular.module('myApp', ['readableTime']);
 ```
 
-Use the filter by passing it a number of seconds.
+Use the filter by passing it a number of milliseconds.
 
 ```html
-<p>{{ 60 | readableTime }}</p>
-<p>{{ 128000 | readableTime }}</p>
+<p>{{ 1000 | readableTime }}</p>
+<p>{{ 119000 | readableTime }}</p>
 ```
 
 The above example will look something like this:
 
-> 1 minute
+> 1.0s
 >
-> 2 weeks
+> 1m 59s
+
+## TO DO
+
+* Implement hours, weeks, months, and years
+* Offer options for display preferences (i.e. verbose: 1 minute 54 seconds)
 
 ## License
 

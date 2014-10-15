@@ -1,19 +1,21 @@
 {
-  "name": "angular-readable-time",
+  "name": "angular-readable-ms",
   "version": "0.1.0",
-  "description": "AngularJS filter for converting a number of seconds to a human-readable time.",
-  "homepage": "https://github.com/wildlyinaccurate/angular-readable-time",
+  "description": "AngularJS filter for converting a number of milliseconds to a human-readable time.",
+  "homepage": "https://github.com/AWaselnuk/angular-readable-ms",
   "authors": [
-    "Joseph Wynn <joseph@wildlyinaccurate.com>"
+    "Joseph Wynn <joseph@wildlyinaccurate.com>",
+    "Adam Waselnuk <adam.waselnuk@gmail.com>"
   ],
   "keywords": [
     "angular",
     "human",
     "readable",
-    "time"
+    "time",
+    "milliseconds"
   ],
   "license": "MIT",
-  "main": "./angular-readable-time.js",
+  "main": "./angular-readable-ms.js",
   "dependencies": {
     "angular": ">=1.0.0 <1.3.0"
   },

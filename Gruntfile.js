@@ -33,10 +33,10 @@ module.exports = function (grunt) {
     uglify: {
       all: {
         options: {
-          sourceMap: 'angular-readable-time.js.map'
+          sourceMap: 'angular-readable-ms.js.map'
         },
         files: {
-          'angular-readable-time.min.js': ['angular-readable-time.js']
+          'angular-readable-ms.min.js': ['angular-readable-ms.js']
         }
       }
     }
