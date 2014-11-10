@@ -38,7 +38,7 @@ The filter also accepts negative values, for example:
 
 Will appear as:
 
-> - 1m 59s
+> \- 1m 59s
 
 ## TO DO
 
