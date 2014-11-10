@@ -30,9 +30,19 @@ The above example will look something like this:
 >
 > 1m 59s
 
+The filter also accepts negative values, for example:
+
+```html
+<p>{{ '-119000' | readableMs }}</p>
+```
+
+Will appear as:
+
+> - 1m 59s
+
 ## TO DO
 
-* Implement hours, weeks, months, and years
+* Improve months and years or disallow them.
 * Offer options for display preferences (i.e. verbose: 1 minute 54 seconds)
 * Offer options for accuracy level (i.e. 1.05s or 1.0s or 1s)
 
