@@ -2,63 +2,87 @@
   'use strict';
   angular.module('readableMs', []).filter('readableMs', function() {
     return function(milliseconds) {
-      var day, formatDays, formatHours, formatMinutes, formatMonths, formatSeconds, formatWeeks, formatYears, hour, minute, month, seconds, week, year;
-      seconds = (parseInt(milliseconds) / 1000).toFixed(1);
-      minute = 60;
-      hour = minute * 60;
-      day = hour * 24;
-      week = day * 7;
-      year = day * 365;
-      month = year / 12;
+      var DAY_IN_SECONDS, HOUR_IN_SECONDS, MINUTE_IN_SECONDS, MONTH_IN_SECONDS, WEEK_IN_SECONDS, YEAR_IN_SECONDS, display, formatDays, formatHours, formatMinutes, formatMonths, formatSeconds, formatWeeks, formatYears, negative, seconds, timeUnits;
+      negative = parseInt(milliseconds) < 0;
+      seconds = parseInt(milliseconds) / 1000;
+      seconds = Math.abs(seconds);
+      MINUTE_IN_SECONDS = 60;
+      HOUR_IN_SECONDS = MINUTE_IN_SECONDS * 60;
+      DAY_IN_SECONDS = HOUR_IN_SECONDS * 24;
+      WEEK_IN_SECONDS = DAY_IN_SECONDS * 7;
+      YEAR_IN_SECONDS = DAY_IN_SECONDS * 365;
+      MONTH_IN_SECONDS = YEAR_IN_SECONDS / 12;
+      timeUnits = {
+        years: null,
+        months: null,
+        weeks: null,
+        days: null,
+        hours: null,
+        minutes: null,
+        seconds: null
+      };
+      display = function() {
+        return ("        " + (negative ? '-' : '') + "        " + (timeUnits.years ? ' ' + timeUnits.years + 'yr' : '') + "        " + (timeUnits.months ? ' ' + timeUnits.months + 'mth' : '') + "        " + (timeUnits.weeks ? ' ' + timeUnits.weeks + 'w' : '') + "        " + (timeUnits.days ? ' ' + timeUnits.days + 'd' : '') + "        " + (timeUnits.hours ? ' ' + timeUnits.hours + 'h' : '') + "        " + (timeUnits.minutes ? ' ' + timeUnits.minutes + 'm' : '') + "        " + (timeUnits.seconds ? ' ' + timeUnits.seconds + 's' : '') + "        ").trim();
+      };
       formatSeconds = function(seconds, decimals) {
         if (decimals == null) {
           decimals = 0;
         }
-        if (decimals = 1) {
-          return "" + seconds + "s";
+        if (decimals === 1) {
+          timeUnits.seconds = seconds.toFixed(1);
         } else {
-          return "" + (Math.round(seconds)) + "s";
+          timeUnits.seconds = Math.round(seconds);
         }
+        return display();
       };
       formatMinutes = function(seconds) {
-        var baseMinutes, formattedSeconds, minutes, remainingSeconds, result;
-        minutes = seconds / minute;
-        baseMinutes = Math.floor(minutes);
-        remainingSeconds = Math.round((minutes - baseMinutes) * 60);
-        formattedSeconds = formatSeconds(remainingSeconds);
-        result = "" + baseMinutes + "m";
-        if (formattedSeconds !== '0s') {
-          result += " " + formattedSeconds;
-        }
-        return result;
+        var remainingSeconds;
+        timeUnits.minutes = Math.floor(seconds / MINUTE_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.minutes * MINUTE_IN_SECONDS);
+        return formatSeconds(remainingSeconds);
       };
       formatHours = function(seconds) {
-        return new Error("Not yet implemented.");
+        var remainingSeconds;
+        timeUnits.hours = Math.floor(seconds / HOUR_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.hours * HOUR_IN_SECONDS);
+        return formatMinutes(remainingSeconds);
       };
       formatDays = function(seconds) {
-        return new Error("Not yet implemented.");
+        var remainingSeconds;
+        timeUnits.days = Math.floor(seconds / DAY_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.days * DAY_IN_SECONDS);
+        return formatHours(remainingSeconds);
       };
       formatWeeks = function(seconds) {
-        return new Error("Not yet implemented.");
+        var remainingSeconds;
+        timeUnits.weeks = Math.floor(seconds / WEEK_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.weeks * WEEK_IN_SECONDS);
+        return formatDays(remainingSeconds);
       };
       formatMonths = function(seconds) {
-        return new Error("Not yet implemented.");
+        var remainingSeconds;
+        timeUnits.months = Math.floor(seconds / month);
+        remainingSeconds = seconds - (timeUnits.months * month);
+        return formatWeeks(remainingSeconds);
       };
       formatYears = function(seconds) {
-        return new Error("Not yet implemented.");
+        var remainingSeconds;
+        timeUnits.years = Math.floor(seconds / MONTH_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.years * MONTH_IN_SECONDS);
+        return formatMonths(remainingSeconds);
       };
       switch (false) {
-        case !(seconds < minute):
+        case !(seconds < MINUTE_IN_SECONDS):
           return formatSeconds(seconds, 1);
-        case !(seconds < hour):
+        case !(seconds < HOUR_IN_SECONDS):
           return formatMinutes(seconds);
-        case !(seconds < day):
+        case !(seconds < DAY_IN_SECONDS):
           return formatHours(seconds);
-        case !(seconds < week):
+        case !(seconds < WEEK_IN_SECONDS):
           return formatDays(seconds);
-        case !(seconds < month):
+        case !(seconds < MONTH_IN_SECONDS):
           return formatWeeks(seconds);
-        case !(seconds < year):
+        case !(seconds < YEAR_IN_SECONDS):
           return formatMonths(seconds);
         default:
           return formatYears(seconds);
