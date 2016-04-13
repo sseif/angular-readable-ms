@@ -61,14 +61,14 @@
       };
       formatMonths = function(seconds) {
         var remainingSeconds;
-        timeUnits.months = Math.floor(seconds / month);
-        remainingSeconds = seconds - (timeUnits.months * month);
+        timeUnits.months = Math.floor(seconds / MONTH_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.months * MONTH_IN_SECONDS);
         return formatWeeks(remainingSeconds);
       };
       formatYears = function(seconds) {
         var remainingSeconds;
-        timeUnits.years = Math.floor(seconds / MONTH_IN_SECONDS);
-        remainingSeconds = seconds - (timeUnits.years * MONTH_IN_SECONDS);
+        timeUnits.years = Math.floor(seconds / YEAR_IN_SECONDS);
+        remainingSeconds = seconds - (timeUnits.years * YEAR_IN_SECONDS);
         return formatMonths(remainingSeconds);
       };
       switch (false) {
